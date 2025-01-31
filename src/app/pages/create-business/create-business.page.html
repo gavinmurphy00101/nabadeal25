@@ -1,0 +1,71 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Create Business</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="navigateTo('home')">Menu</ion-button>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<div class="spacer"></div>
+<ion-content [fullscreen]="true">
+  
+    <ion-toolbar>
+      <ion-title size="large" color="primary">ENTER BUSINESS DETAILS</ion-title>
+    </ion-toolbar>
+    
+    <ion-list>
+
+      <ion-item>
+        <ion-label position="stacked">Contact Name*</ion-label>
+        <ion-input type="text" ion-input [(ngModel)]="business.contact_name" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Business Name*</ion-label>
+        <ion-input type="text" ion-input [(ngModel)]="business.name" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Business Description*</ion-label>
+        <ion-textarea [(ngModel)]="business.description"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Business Location*</ion-label>
+       <div class="spacer"></div>
+        <app-google-places-autocomplete  (createMarker)="handleNewMarker($event)" style="width: 100%"/>
+      </ion-item>
+ 
+      <ion-item *ngIf="formatted_address"> 
+        {{formatted_address}}
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Business Phone*</ion-label>
+        <ion-input type="number" ion-input [(ngModel)]="business.phone"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Business Email*</ion-label>
+        <ion-input type="email" ion-input [(ngModel)]="business.email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Business Website</ion-label>
+        <ion-input type="email" ion-input [(ngModel)]="business.website"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+          <div class="spacer"></div>
+          <ion-button (click)="submitBusiness()" expand="full" shape="round" slot="end">Submit</ion-button>
+     
+      </ion-item>
+        
+     
+    </ion-list>
+
+    
+  
+  
+</ion-content>

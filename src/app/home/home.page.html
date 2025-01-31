@@ -1,25 +1,11 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-     Nabadeal
-    </ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="navigateTo('create-business')">Menu</ion-button>
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<app-menu [menuItems]="customerMenuItems"></app-menu>
+<div class="ion-page" id="main-menu">
+  <app-header [title]="title"></app-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <app-map></app-map>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content>
+  <ion-content class="ion-padding"> 
+    <div id="container">
+      <app-map></app-map>  
+    </div>
+  </ion-content>
+</div>

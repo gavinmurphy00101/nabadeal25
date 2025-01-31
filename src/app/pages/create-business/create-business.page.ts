@@ -20,6 +20,8 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
 import { CreateBusiness, Marker } from 'src/app/interfaces/commonObjects.modals';
+import { NavigationService } from 'src/app/services/navigation.service';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 declare var google: any;
 @Component({
   selector: 'app-create-business',
@@ -39,15 +41,16 @@ declare var google: any;
     IonButton,
     IonMenuButton,
     IonAlert,
+    HeaderComponent,
     CommonModule,
     FormsModule,
-    GooglePlacesAutocompleteComponent]
+    GooglePlacesAutocompleteComponent],
+  providers: [NavigationService]
 })
 export class CreateBusinessPage implements OnInit {
-
+  title = 'Create Business';
   map: any;
   business: CreateBusiness  = {name:'', description: '', category: '', email: '', phone: '', website: '', contact_name: ''};
- 
   formatted_address: Array<any> | undefined;
   newMarker: any;
   public alertButtons = [
@@ -68,7 +71,7 @@ export class CreateBusinessPage implements OnInit {
   ];
 
   constructor(
-    private router: Router, 
+    private navigationService: NavigationService, 
     private alertController: AlertController) {}
 
   ngOnInit() {
@@ -93,7 +96,7 @@ export class CreateBusinessPage implements OnInit {
   private populateAddressField(newMarker: any) {
     this.formatted_address = newMarker.formatted_address;
   }
-  /* marker object here - deal object will have all the details */
+
   private async pushMarkerToObjectForStorage(marker: Marker) : Promise<any> {
     marker = await this.populateIcon(marker);  
     let arr = [];
@@ -108,7 +111,6 @@ export class CreateBusinessPage implements OnInit {
       sessionStorage.setItem('markers', JSON.stringify(parsedMarker));
     }
 
-    console.log('saved to session');
     return new Promise<void>((resolve, reject) => {
       resolve();
     });
@@ -137,7 +139,7 @@ export class CreateBusinessPage implements OnInit {
   }
 
   public navigateTo(slug: string){
-    this.router.navigate([slug]);
+    this.navigationService.navigate(slug);
   }
 
   

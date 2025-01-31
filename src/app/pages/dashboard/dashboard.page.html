@@ -1,17 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Dashboard</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="navigateTo('home')">Menu</ion-button>
-      
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-menu [menuItems]="businessMenuItems"></app-menu>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<div class="ion-page" id="main-menu">
+  <app-header [title]="title"></app-header>
+  <ion-content class="ion-padding"> 
+    <div id="container">
+      Write content hre
+    </div>
+  </ion-content>
+</div>

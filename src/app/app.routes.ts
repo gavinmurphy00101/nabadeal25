@@ -26,4 +26,16 @@ export const routes: Routes = [
     path: 'dasboard-map',
     loadComponent: () => import('./pages/dasboard-map/dasboard-map.page').then( m => m.DasboardMapPage)
   },
+  {
+    path: 'my-deals',
+    loadComponent: () => import('./pages/my-deals/my-deals.page').then( m => m.MyDealsPage)
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./pages/profile/profile.page').then( m => m.ProfilePage)
+  },
+  {
+    path: 'current-deal',
+    loadComponent: () => import('./pages/current-deal/current-deal.page').then( m => m.CurrentDealPage)
+  },
 ];

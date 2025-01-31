@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonMenuButton } from '@ionic/angular/standalone';
-import { Router } from '@angular/router';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonMenuButton,
+  IonList, IonItem, IonLabel, IonInput, IonTextarea
+ } from '@ionic/angular/standalone';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-create-deal',
@@ -15,19 +17,25 @@ import { Router } from '@angular/router';
     IonToolbar,
     IonButtons,
     IonButton,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonTextarea,
     IonMenuButton,
     CommonModule,
-    FormsModule]
+    FormsModule],
+  providers: [NavigationService]
 })
 export class CreateDealPage implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private navigationService: NavigationService) { }
 
   ngOnInit() {
   }
 
   public navigateTo(slug: string){
-    this.router.navigate([slug]);
+    this.navigationService.navigate(slug);
   }
 
 }

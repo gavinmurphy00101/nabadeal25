@@ -9,9 +9,46 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">create-deal</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-title size="large" color="primary">ENTER Deal DETAILS</ion-title>
+  </ion-toolbar>
+  
+  <ion-list>
+
+    <ion-item>
+      <ion-label position="stacked">Deal Name*</ion-label>
+      <ion-input type="text" required></ion-input>
+    </ion-item>
+
+   
+    <ion-item>
+      <ion-label position="stacked">Deal Description*</ion-label>
+      <ion-textarea ></ion-textarea>
+    </ion-item>
+
+   
+
+    <!-- <ion-item *ngIf="formatted_address"> 
+      formatted_address
+    </ion-item> -->
+
+    <ion-item>
+      <ion-label position="stacked">how many*</ion-label>
+      <ion-input type="number" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">expires*</ion-label>
+      <ion-input type="email" ></ion-input>
+    </ion-item>
+
+
+    <ion-item lines="none">
+        <div class="spacer"></div>
+        <ion-button  expand="full" shape="round" slot="end">Add deal now</ion-button>
+   
+    </ion-item>
+      
+   
+  </ion-list>
 </ion-content>

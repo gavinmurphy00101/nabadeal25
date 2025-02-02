@@ -1,5 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
-import { IonMenu, IonHeader, IonToolbar, IonContent, IonButtons, IonButton, IonMenuButton, IonFooter } from '@ionic/angular/standalone';
+import { IonMenu, IonHeader, IonToolbar, IonContent, IonButtons, IonButton, IonMenuButton, IonFooter, IonBackButton } from '@ionic/angular/standalone';
 
 
 @Component({
@@ -13,16 +14,22 @@ import { IonMenu, IonHeader, IonToolbar, IonContent, IonButtons, IonButton, IonM
     IonContent,
     IonButtons,
     IonButton,
-    IonMenuButton
+    IonMenuButton,
+    IonBackButton,
+    CommonModule
 ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HeaderComponent  implements OnInit {
 
   @Input() title: string = 'Nabadeal';
+  @Input() enableBackButton: boolean = false;
+  @Input() business: boolean = false;
   
   constructor() { }
 
   ngOnInit() {}
+
+  
 
 }

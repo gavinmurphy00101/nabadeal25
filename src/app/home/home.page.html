@@ -1,11 +1,14 @@
 
 <app-menu [menuItems]="customerMenuItems"></app-menu>
 <div class="ion-page" id="main-menu">
-  <app-header [title]="title"></app-header>
+  <app-header [title]="title" (pushed)="test($event)"></app-header>
 
   <ion-content class="ion-padding"> 
     <div id="container">
       <app-map></app-map>  
+      
     </div>
+    <div class="footer" (click)="openModal()" ></div>
   </ion-content>
+  
 </div>

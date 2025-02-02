@@ -24,7 +24,13 @@ import { NavigationService } from 'src/app/services/navigation.service';
 })
 export class MenuComponent  {
 
-  @Input() menuItems: Array<any> | undefined = []
+  @Input() menuItems: Array<any> | undefined = [];
+  @Input() menuid: string = '';
+
+  @Input() firstMenuItems: Array<any> | undefined = [];
+  @Input() secondMenuItems: Array<any> | undefined = [];
+
+
 
   constructor(private navigationService : NavigationService) { }
 

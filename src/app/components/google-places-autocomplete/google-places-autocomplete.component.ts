@@ -44,9 +44,7 @@ export class GooglePlacesAutocompleteComponent implements OnInit {
 
       this.autocomplete.addListener('place_changed', ()=>{
         const place = this.autocomplete.getPlace();
-        debugger
         const newMarker = place;
-        debugger
         this.createNewMarker({
           ...newMarker,
           lat: place.geometry.location.lat(),

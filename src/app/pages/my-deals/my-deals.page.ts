@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, MenuController } from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 
@@ -20,9 +20,27 @@ export class MyDealsPage implements OnInit {
     { name: 'Profile', slug: 'profile'},
     { name: 'Join as business', slug: 'create-business'}
   ];
-  constructor() { }
+
+  constructor(private menuController: MenuController) { }
 
   ngOnInit() {
+  
+  }
+
+  menuid = 'mydeals'
+  
+/* 
+  ionViewDidEnter() {
+    this.menuController.enable(true, this.menuid)
+  }
+
+  ionViewWillLeave() {
+    this.menuController.enable(false, this.menuid);
+  } */
+
+  handleMenu(e:any){
+    
+    this.menuController.toggle();
   }
 
 }

@@ -16,9 +16,7 @@ import { IonContent,
   IonAlert
 } from '@ionic/angular/standalone';
 import { GooglePlacesAutocompleteComponent } from 'src/app/components/google-places-autocomplete/google-places-autocomplete.component';
-import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { OverlayEventDetail } from '@ionic/core';
 import { CreateBusiness, Marker } from 'src/app/interfaces/commonObjects.modals';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { HeaderComponent } from 'src/app/components/header/header.component';
@@ -48,6 +46,7 @@ declare var google: any;
   providers: [NavigationService]
 })
 export class CreateBusinessPage implements OnInit {
+  enableBackButton: boolean = true;
   title = 'Create Business';
   map: any;
   business: CreateBusiness  = {name:'', description: '', category: '', email: '', phone: '', website: '', contact_name: ''};

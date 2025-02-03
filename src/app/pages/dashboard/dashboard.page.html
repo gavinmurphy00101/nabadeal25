@@ -58,8 +58,14 @@
   <ion-content class="ion-padding"> 
     <div id="container">
       <app-pie-chart 
-      [dataItemArray]="dataItems"
-      [colorArray]="['#5AA454', '#A10A28', '#C7B42C']" ></app-pie-chart>
+        [dataItemArray]="dataItems"
+        [colorArray]="['#5AA454', '#A10A28', '#C7B42C']" >
+    </app-pie-chart>
+
+    <app-bar-chart 
+        [dataItemArray]="dataItems"
+        [colorArray]="['#5AA454', '#A10A28', '#C7B42C']" >
+    </app-bar-chart>
     </div>
   </ion-content>
 </div>

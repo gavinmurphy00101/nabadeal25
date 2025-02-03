@@ -11,6 +11,7 @@ import { MenuType } from 'src/app/enums/commonEnums';
 import { DataItem, NgxChartsModule }from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PieChartComponent } from 'src/app/components/pie-chart/pie-chart.component';
+import { BarChartComponent } from 'src/app/components/bar-chart/bar-chart.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,6 +33,7 @@ import { PieChartComponent } from 'src/app/components/pie-chart/pie-chart.compon
     HeaderComponent,
     MenuComponent,
     PieChartComponent,
+    BarChartComponent,
     CommonModule,
     FormsModule],
   providers: [NavigationService]

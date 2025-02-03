@@ -3,15 +3,15 @@ import { Color, DataItem, NgxChartsModule, ScaleType } from '@swimlane/ngx-chart
 import { CustomDataItem } from 'src/app/interfaces/commonObjects.modals';
 
 @Component({
-  selector: 'app-pie-chart',
-  templateUrl: './pie-chart.component.html',
-  styleUrls: ['./pie-chart.component.scss'],
+  selector: 'app-bar-chart',
+  templateUrl: './bar-chart.component.html',
+  styleUrls: ['./bar-chart.component.scss'],
   standalone: true,
   imports: [NgxChartsModule]
 })
-export class PieChartComponent  implements OnInit {
+export class BarChartComponent  implements OnInit {
 
-  @Input() dataItemArray : DataItem[] = [];
+  @Input() dataItemArray: DataItem[] = [];
   @Input() colorArray: string[] | undefined;
 
   domain: string[] = [];
@@ -19,13 +19,20 @@ export class PieChartComponent  implements OnInit {
   customDataItemArray: CustomDataItem[] = [];
   view: [number, number] = [700, 400];
   gradient = false;
-  showLegend = true;
+  showLegend = false;
+  showXAxis = true;
+  showYAxis = true;
+  showXAxisLabel = true;
+  showYAxisLabel = false;
+  xAxisLabel = 'Country';
+  yAxisLabel = 'Population';
   colorScheme: Color = {
     name: 'custom',
     selectable: true,
     group: ScaleType.Ordinal,
     domain: this.domain
   };
+  
 
   constructor() { }
 
@@ -36,21 +43,20 @@ export class PieChartComponent  implements OnInit {
     window.addEventListener('resize', this.setResponsiveView.bind(this));
   }
 
-  public onSelect(event: any) {
-    //popup alert
-    console.log(event);
-  }
-
-  private async getCustomDataArray() : Promise<CustomDataItem[]> {
-    let result: Array<CustomDataItem> = [];
-    this.dataItemArray?.forEach( (item: DataItem, index) => {
-      let customDataItem: any = { ...item, color: this.colorArray ? this.colorArray[index] : '#AAAAAA' };
-      result.push(customDataItem);
-      this.domain.push(customDataItem.color);
-    });
-    this.domain.push('#AAAAAA');
+  private getCustomDataArray(): Promise<CustomDataItem[]> {
     return new Promise((resolve, reject) => {
-      resolve(result);
+      try {
+        let result: Array<CustomDataItem> = [];
+        this.dataItemArray?.forEach((item: DataItem, index) => {
+          let customDataItem: CustomDataItem = { ...item, name: item.name.toString(), color: this.colorArray ? this.colorArray[index] : '#AAAAAA' };
+          result.push(customDataItem);
+          this.domain.push(customDataItem.color);
+        });
+        this.domain.push('#AAAAAA');
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
@@ -58,9 +64,14 @@ export class PieChartComponent  implements OnInit {
     if (window.innerWidth < 768) {
       this.view = [window.innerWidth - 40, 300]; // Adjust for mobile
     } else {
-      this.view = [700, 400]; 
+      this.view = [700, 400];
     }
   }
 
-  
+  public onSelect(event: any) {
+    console.log(event);
+  }
+
+ 
+
 }

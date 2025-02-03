@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
+import { ProfileFormComponent } from 'src/app/components/profile-form/profile-form.component';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, HeaderComponent, CommonModule, FormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, HeaderComponent, CommonModule, ProfileFormComponent]
 })
 export class ProfilePage implements OnInit {
   public title: string = 'Profile';

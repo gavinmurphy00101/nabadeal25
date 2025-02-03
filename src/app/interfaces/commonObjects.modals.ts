@@ -35,3 +35,9 @@ export interface LatLng{
     lat: number; 
     lng: number;
 }
+
+export interface CustomDataItem{
+    name: string;
+    value: number;
+    color: string;
+}

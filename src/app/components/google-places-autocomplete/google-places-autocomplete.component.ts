@@ -1,6 +1,7 @@
 import { query } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Client } from '@googlemaps/google-maps-services-js';
+import { LatLng } from 'src/app/interfaces/commonObjects.modals';
 
 const client = new Client({});
 declare var google: any;
@@ -18,8 +19,8 @@ declare global {
 })
 export class GooglePlacesAutocompleteComponent implements OnInit {
 
-  @Output() createMarker = new EventEmitter<{ lat: number; lng: number }[]>();
-  newMarker: { lat: any; lng: any; }[] | undefined;
+  @Output() createMarker = new EventEmitter<Array<LatLng>>();
+  newMarker: Array<LatLng> | undefined;
 
   ngOnInit(): void {
     setTimeout(() => {

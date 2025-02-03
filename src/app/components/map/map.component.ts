@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
-import { Marker } from 'src/app/interfaces/commonObjects.modals';
+import { LatLng, Marker } from 'src/app/interfaces/commonObjects.modals';
 import {  IonContent } from '@ionic/angular/standalone';
 declare var google: any;
 @Component({
@@ -12,7 +12,8 @@ declare var google: any;
 })
 export class MapComponent implements OnInit {
   map:any;
-  cpos: { lat: number; lng: number; } | undefined;
+  cpos: LatLng | undefined;
+  
   constructor() { }
 
   async ngOnInit() {
@@ -96,65 +97,47 @@ export class MapComponent implements OnInit {
       streetViewControl: false
     });
 
+
+    const markers: Marker[] = this.getMarkers();
+    markers ? this.setMarkers(markers, this.map) : null; 
+  }
+
+  private getMarkers(): Array<Marker> {
+        //fetch markers from a service
+    let markers: Array<Marker> = [];
     if(sessionStorage.getItem('markers') != null){
-     
       if(sessionStorage.getItem('markers')){
         const markersString: string | null = sessionStorage.getItem('markers');
-        const markers: Array<Marker> = markersString ? JSON.parse(markersString) : null
-        markers.map((element: any) => {
-
-          const marker = new google.maps.Marker({
-            position: { lat: element.position.lat, lng: element.position.lng },
-            map: this.map,
-            title: element.name, 
-             icon: element.icon 
-           }); 
-      
-           const infoWindow = new google.maps.InfoWindow({
-            content: '<p>Additional info goes here.</p>'
-          }); 
-      
-           marker.addListener('click', () => {
-            infoWindow.open(this.map, marker);
-          }); 
-        });
+        markers = markersString ? JSON.parse(markersString) : null;
       }
+    } 
+    return markers;
+  }
 
-     
-      /* if(markers != null){
-        markers = JSON.parse(markers)
-        markers?.forEach(element => {
+  private setMarkers(markers: Marker[], map: any): void {
+    markers.map((element: any) => {
 
-          const marker = new google.maps.Marker({
-            position: { lat: element.lat, lng: element.lng },
-            map: this.map,
-            title: 'My Marker', 
-             icon: 'assets/icon/icon.png' 
-           }); 
-      
-           const infoWindow = new google.maps.InfoWindow({
-            content: '<p>Additional info goes here.</p>'
-          }); 
-      
-           marker.addListener('click', () => {
-            infoWindow.open(this.map, marker);
-          }); 
-          
-        });
-      }
-      if(markers){
-        
-      } */
-      
-    }
-    
-    
+      const marker = new google.maps.Marker({
+        position: { lat: element.position.lat, lng: element.position.lng },
+        map: map,
+        title: element.name, 
+         icon: element.icon 
+       }); 
+  
+       const infoWindow = new google.maps.InfoWindow({
+        content: '<p>Additional info goes here.</p>'
+      }); 
+  
+       marker.addListener('click', () => {
+        infoWindow.open(map, marker);
+      }); 
+    });
   }
 
   printCurrentPosition = async () => {
     const coordinates = await Geolocation.getCurrentPosition();
     this.cpos = { lat: coordinates.coords.latitude, lng: coordinates.coords.longitude };
-    return await { lat: coordinates.coords.latitude, lng: coordinates.coords.longitude };
+    return { lat: coordinates.coords.latitude, lng: coordinates.coords.longitude };
   };
 
 }

@@ -1,7 +1,11 @@
 
-<app-menu [menuItems]="customerMenuItems"></app-menu>
-<div class="ion-page" id="main-menu">
-  <app-header [title]="title" (pushed)="test($event)"></app-header>
+<app-menu 
+[menuItems]="customerMenuItems" 
+[business]="false"
+[menuid]="'firstMenu'"></app-menu>
+
+<div class="ion-page" id="main-content">
+  <app-header [title]="title" [business]="false" [enableBackButton]="false"></app-header>
 
   <ion-content class="ion-padding"> 
     <div id="container">

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
-import { IonMenu, IonHeader, IonToolbar, IonContent, IonButtons, IonButton, IonMenuButton, IonFooter, IonBackButton } from '@ionic/angular/standalone';
+import { IonMenu, IonHeader, IonToolbar, IonContent, IonButtons, IonButton, IonMenuButton, IonFooter, IonBackButton, MenuController } from '@ionic/angular/standalone';
 
 
 @Component({
@@ -26,7 +26,15 @@ export class HeaderComponent  implements OnInit {
   @Input() enableBackButton: boolean = false;
   @Input() business: boolean = false;
   
-  constructor() { }
+  constructor(private menuController: MenuController) { }
+
+  openFirstMenu() {
+    this.menuController.open('firstMenu');
+  }
+
+  openSecondMenu() {
+    this.menuController.open('secondMenu');
+  }
 
   ngOnInit() {}
 

@@ -1,10 +1,12 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">  
-        <ion-menu-button *ngIf="!enableBackButton"></ion-menu-button>
+        <ion-menu-button *ngIf="!enableBackButton && !business" (click)="openFirstMenu()"></ion-menu-button>
+         <ion-menu-button *ngIf="!enableBackButton && business" (click)="openSecondMenu()"></ion-menu-button>
         <ion-back-button *ngIf="enableBackButton && !business" defaultHref="/"></ion-back-button>
         <ion-back-button *ngIf="enableBackButton && business" defaultHref="/business"></ion-back-button>
 
+        
         
       </ion-buttons>
     <ion-title>{{title}}</ion-title>

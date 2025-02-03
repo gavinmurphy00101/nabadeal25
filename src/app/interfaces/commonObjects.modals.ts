@@ -9,7 +9,7 @@ export interface CreateBusiness{
 }
 
 export interface Marker{
-    position: { lat: number; lng: number; }; 
+    position: LatLng; 
     map: any;
     title:string;
     icon:string;
@@ -23,4 +23,15 @@ export interface Marker{
     businessPhone: string;
     businessEmail: string;
     businessWebsite: string;
+}
+
+export interface MenuItems{
+    name: string;
+    slug: string;
+    icon: string;
+}
+
+export interface LatLng{
+    lat: number; 
+    lng: number;
 }

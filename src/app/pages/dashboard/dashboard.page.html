@@ -18,11 +18,46 @@
   </ion-content>
 </ion-menu> -->
 
-<div class="ion-page" id="second-menu">
-  <app-header [title]="title"></app-header>
+<!-- <ion-menu menuId="firstMenu" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>First Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item *ngFor="let item of firstMenuItems" (click)="navigateTo(item.slug)">
+        <ion-label>{{ item.name }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-menu menuId="secondMenu" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Second Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item *ngFor="let item of secondMenuItems" (click)="navigateTo(item.slug)">
+        <ion-label>{{ item.name }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu> -->
+
+<app-menu 
+[menuItems]="businessMenuItems" 
+[business]="true"
+[menuid]="'secondMenu'"></app-menu>
+
+<div class="ion-page" id="main-content">
+  <app-header [title]="title" [business]="true" [enableBackButton]="false"></app-header>
   <ion-content class="ion-padding"> 
     <div id="container">
-      Write content hre
+
     </div>
   </ion-content>
 </div>

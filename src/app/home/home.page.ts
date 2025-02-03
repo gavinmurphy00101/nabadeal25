@@ -6,6 +6,9 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../components/header/header.component';
 import { MenuComponent } from '../components/menu/menu.component';
 import { ModalComponent } from '../components/modal/modal.component';
+import { LatLng, MenuItems } from '../interfaces/commonObjects.modals';
+import { MenuService } from '../services/menu.service';
+import { MenuType } from '../enums/commonEnums';
 
 declare var google: any;
 @Component({
@@ -35,35 +38,21 @@ declare var google: any;
 export class HomePage implements OnInit {
   public title: string = 'Nabadeal';
   map:any;
-  cpos: { lat: number; lng: number; } | undefined;
-  customerMenuItems: Array<any> | undefined = [];
+  cpos: LatLng | undefined;
+  customerMenuItems: Array<MenuItems> = [];
 
   constructor(
     private navigationService: NavigationService,
-    private menu : MenuController,
+    private menuService : MenuService,
     private modalController: ModalController
   ) {}
   
   async ngOnInit() {
-    this.customerMenuItems = [
-      { name: 'Home', slug: 'home'},
-      { name: 'My Deals', slug: 'my-deals'}, 
-      { name: 'Profile', slug: 'profile'},
-      { name: 'Join as business', slug: 'create-business'}
-    ];
-
-  }
-
-  test(e:any){
-    this.menu.toggle();
+    this.customerMenuItems = this.menuService.getMenuItems(MenuType.Home);
   }
 
   navigateTo(slug: string){
     this.navigationService.navigate(slug);
-  }
-
-  test1(){
-    alert('test');
   }
 
   async openModal() {

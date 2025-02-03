@@ -5,6 +5,9 @@ import { IonMenu, IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBu
 import { NavigationService } from 'src/app/services/navigation.service';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
+import { MenuItems } from 'src/app/interfaces/commonObjects.modals';
+import { MenuService } from 'src/app/services/menu.service';
+import { MenuType } from 'src/app/enums/commonEnums';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,22 +33,21 @@ import { MenuComponent } from 'src/app/components/menu/menu.component';
   providers: [NavigationService]
 })
 export class DashboardPage implements OnInit {
-  public title: string = 'Nabadeal Dashboard';
-  public businessMenuItems : Array<any> | undefined;
-  constructor( private navigationService: NavigationService) { }
+  public title: string = 'Dashboard';
+  public businessMenuItems : Array<MenuItems> | undefined;
+
+  constructor( 
+    private navigationService: NavigationService,
+    private menuService: MenuService
+  ) { }
 
   ngOnInit() {
-    this.businessMenuItems = [
-      { name: 'Dashboard', slug: 'dashboard'},
-      { name: 'Map View', slug: 'dasboard-map'}, 
-      { name: 'Create New Deal', slug: 'create-deal'},
-      { name: 'Current Deal', slug: 'current-deal'},
-      { name: 'Customer View', slug: 'home'}
-    ];
+    this.businessMenuItems = this.menuService.getMenuItems(MenuType.Business);
   }
 
   public navigateTo(slug: string){
     this.navigationService.navigate(slug);
   }
+
 
 }

@@ -1,12 +1,7 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Dashboard Map</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="navigateTo('dashboard')">Menu</ion-button>
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="title" 
+            [enableBackButton]="enableBackButton"
+            [business]="business">
+</app-header>
 
 <ion-content [fullscreen]="true">
   <app-map></app-map>

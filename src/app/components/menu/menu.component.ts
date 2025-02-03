@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonLabel, IonItem, IonList,  IonButtons, IonButton, IonMenuButton, IonFooter } from '@ionic/angular/standalone';
+import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonLabel, IonItem, IonList,  IonButtons, IonButton, IonMenuButton, IonFooter, IonIcon, MenuController } from '@ionic/angular/standalone';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { addIcons } from 'ionicons';
+import { logoIonic, home, barChartOutline, diamondOutline, personCircleOutline, mapOutline, locationOutline, pricetagOutline, sparkles, sparklesOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-menu',
@@ -17,6 +19,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
             IonButton,
             IonMenuButton,
             IonContent,
+            IonIcon,
             IonLabel, IonItem, IonList,
             CommonModule
             ],
@@ -26,15 +29,24 @@ export class MenuComponent  {
 
   @Input() menuItems: Array<any> | undefined = [];
   @Input() menuid: string = '';
+  @Input() business: boolean = false;
 
-  @Input() firstMenuItems: Array<any> | undefined = [];
-  @Input() secondMenuItems: Array<any> | undefined = [];
-
-
-
-  constructor(private navigationService : NavigationService) { }
+  constructor(private navigationService : NavigationService, private menuController: MenuController) {
+    addIcons({ 
+      logoIonic,
+      home,
+      barChartOutline,
+      diamondOutline,
+      personCircleOutline,
+      mapOutline,
+      locationOutline,
+      pricetagOutline,
+      sparklesOutline
+    });
+   }
 
   public navigateTo(slug: string){
+    this.menuid ? this.menuController.close(this.menuid): null;
     this.navigationService.navigate(slug);
   }
 

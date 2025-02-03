@@ -1,12 +1,7 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Create Deal</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="navigateTo('home')">Menu</ion-button>
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="title" 
+            [enableBackButton]="enableBackButton"
+            [business]="business">
+</app-header>
 
 <ion-content [fullscreen]="true">
   <ion-toolbar>
@@ -26,12 +21,6 @@
       <ion-textarea ></ion-textarea>
     </ion-item>
 
-   
-
-    <!-- <ion-item *ngIf="formatted_address"> 
-      formatted_address
-    </ion-item> -->
-
     <ion-item>
       <ion-label position="stacked">how many*</ion-label>
       <ion-input type="number" ></ion-input>
@@ -42,13 +31,10 @@
       <ion-input type="email" ></ion-input>
     </ion-item>
 
-
     <ion-item lines="none">
         <div class="spacer"></div>
         <ion-button  expand="full" shape="round" slot="end">Add deal now</ion-button>
-   
     </ion-item>
-      
-   
+
   </ion-list>
 </ion-content>

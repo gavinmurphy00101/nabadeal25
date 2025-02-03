@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
-import { IonMenu, IonHeader, IonToolbar, IonContent, IonButtons, IonButton, IonMenuButton, IonFooter, IonBackButton, MenuController } from '@ionic/angular/standalone';
+import { IonMenu, IonHeader, IonToolbar, IonContent, IonButtons, IonButton, IonMenuButton, IonIcon, IonFooter, IonBackButton, MenuController } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { logoIonic, home, barChartOutline, diamondOutline, personCircleOutline, mapOutline, locationOutline, pricetagOutline, sparkles, sparklesOutline, search } from 'ionicons/icons';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 
 @Component({
@@ -15,6 +18,7 @@ import { IonMenu, IonHeader, IonToolbar, IonContent, IonButtons, IonButton, IonM
     IonButtons,
     IonButton,
     IonMenuButton,
+    IonIcon,
     IonBackButton,
     CommonModule
 ],
@@ -26,7 +30,14 @@ export class HeaderComponent  implements OnInit {
   @Input() enableBackButton: boolean = false;
   @Input() business: boolean = false;
   
-  constructor(private menuController: MenuController) { }
+  constructor(
+    private menuController: MenuController,
+    private navigationService: NavigationService) { 
+    addIcons({ 
+      search,
+      personCircleOutline,
+    });
+  }
 
   openFirstMenu() {
     this.menuController.open('firstMenu');
@@ -35,6 +46,16 @@ export class HeaderComponent  implements OnInit {
   openSecondMenu() {
     this.menuController.open('secondMenu');
   }
+
+  openProfile() {
+    this.navigationService.navigate('profile');
+  }
+
+  openSearch() {
+    
+  }
+
+  
 
   ngOnInit() {}
 

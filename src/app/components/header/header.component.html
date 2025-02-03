@@ -1,13 +1,14 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header >
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">  
         <ion-menu-button *ngIf="!enableBackButton && !business" (click)="openFirstMenu()"></ion-menu-button>
          <ion-menu-button *ngIf="!enableBackButton && business" (click)="openSecondMenu()"></ion-menu-button>
         <ion-back-button *ngIf="enableBackButton && !business" defaultHref="/"></ion-back-button>
-        <ion-back-button *ngIf="enableBackButton && business" defaultHref="/business"></ion-back-button>
-
-        
-        
+        <ion-back-button *ngIf="enableBackButton && business" defaultHref="/business"></ion-back-button> 
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-icon name="search" (click)="openSearch()"></ion-icon>
+        <ion-icon name="person-circle-outline" (click)="openProfile()"></ion-icon>
       </ion-buttons>
     <ion-title>{{title}}</ion-title>
   </ion-toolbar>

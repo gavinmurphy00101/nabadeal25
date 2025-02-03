@@ -9,10 +9,21 @@
 
   <ion-content class="ion-padding"> 
     <div id="container">
+      <ion-item></ion-item>
+        <app-google-places-autocomplete></app-google-places-autocomplete>
       <app-map></app-map>  
       
     </div>
-    <div class="footer" (click)="openModal()" ></div>
+   
+      <div class="footer" (click)="openModal()" >
+        <ion-item color="primary" lines="none" class="ion-no-padding">
+          <div class="center-icon-item">
+            <ion-icon name="filter-outline" class="center-icon"></ion-icon>
+          </div>
+        </ion-item>
+      </div>
+  
+    
   </ion-content>
   
 </div>

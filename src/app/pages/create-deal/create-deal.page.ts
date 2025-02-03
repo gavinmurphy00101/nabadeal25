@@ -5,6 +5,8 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, Ion
   IonList, IonItem, IonLabel, IonInput, IonTextarea
  } from '@ionic/angular/standalone';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { MenuComponent } from 'src/app/components/menu/menu.component';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 
 @Component({
   selector: 'app-create-deal',
@@ -23,13 +25,19 @@ import { NavigationService } from 'src/app/services/navigation.service';
     IonInput,
     IonTextarea,
     IonMenuButton,
+    HeaderComponent,
     CommonModule,
     FormsModule],
   providers: [NavigationService]
 })
 export class CreateDealPage implements OnInit {
-
-  constructor(private navigationService: NavigationService) { }
+  public title: string = 'Create Deal'
+  public business: boolean = true;
+  public enableBackButton: boolean = true;
+  constructor(
+    private navigationService: NavigationService,
+  
+  ) { }
 
   ngOnInit() {
   }

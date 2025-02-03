@@ -8,6 +8,8 @@ import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { MenuItems } from 'src/app/interfaces/commonObjects.modals';
 import { MenuService } from 'src/app/services/menu.service';
 import { MenuType } from 'src/app/enums/commonEnums';
+import { NgxChartsModule }from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-dashboard',

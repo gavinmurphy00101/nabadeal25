@@ -26,7 +26,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
 })
 export class HeaderComponent  implements OnInit {
 
-  @Input() title: string = 'Nabadeal';
+  @Input() title: string | undefined = 'Nabadeal';
   @Input() enableBackButton: boolean = false;
   @Input() business: boolean = false;
   

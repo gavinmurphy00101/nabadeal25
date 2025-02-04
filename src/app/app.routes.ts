@@ -38,4 +38,8 @@ export const routes: Routes = [
     path: 'current-deal',
     loadComponent: () => import('./pages/current-deal/current-deal.page').then( m => m.CurrentDealPage)
   },
+  {
+    path: 'customer-facing-business-profile',
+    loadComponent: () => import('./pages/customer-facing-business-profile/customer-facing-business-profile.page').then( m => m.CustomerFacingBusinessProfilePage)
+  },
 ];

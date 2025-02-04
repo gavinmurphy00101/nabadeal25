@@ -23,12 +23,22 @@ export interface Marker{
     businessPhone: string;
     businessEmail: string;
     businessWebsite: string;
+    display?: boolean;
 }
 
 export interface MenuItems{
     name: string;
     slug: string;
     icon: string;
+}
+
+export interface Business{
+    activeDeal:string ;
+    businessName:string ;
+    description:string ;
+    businessPhone:string ;
+    businessEmail:string ;
+    businessWebsite:string ;
 }
 
 export interface LatLng{
@@ -40,4 +50,11 @@ export interface CustomDataItem{
     name: string;
     value: number;
     color: string;
+}
+
+export interface Points {
+    lat1: number;
+    lon1: number;
+    lat2: number;
+    lon2: number;
 }

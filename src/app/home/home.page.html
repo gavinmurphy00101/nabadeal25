@@ -11,7 +11,7 @@
     <div id="container">
       <ion-item></ion-item>
         <app-google-places-autocomplete></app-google-places-autocomplete>
-      <app-map></app-map>  
+      <app-map (navigateTo)="navigateToCustomerFacing($event)"></app-map>  
       
     </div>
    

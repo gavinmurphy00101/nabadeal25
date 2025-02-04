@@ -1,0 +1,22 @@
+<app-header *ngIf="businessDetails?.businessName" [title]="businessDetails?.businessName  ? businessDetails?.businessName : 'no title'" [enableBackButton]="true"></app-header>
+
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <!-- <img [src]="businessDetails?.imageUrl ?? 'default-image-url.jpg'" alt="Business Image" /> -->
+    <ion-card-header>
+      <ion-card-title>{{ businessDetails?.businessName ?? 'No Title' }}</ion-card-title>
+      <ion-card-subtitle>{{ businessDetails?.description ?? 'No Subtitle' }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          <h2>Contact Details</h2>
+          <ion-text color="medium">
+            <p>{{ businessDetails?.businessPhone ?? 'No Phone' }}</p>
+          </ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

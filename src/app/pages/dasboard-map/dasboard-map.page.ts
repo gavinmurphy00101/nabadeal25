@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonMenuButton } from '@ionic/angular/standalone';
-import { MapComponent } from 'src/app/components/map/map.component';
+import { MapComponent } from 'src/app/components/googlemaps/map/map.component';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 

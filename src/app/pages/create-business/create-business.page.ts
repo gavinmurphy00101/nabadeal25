@@ -15,7 +15,7 @@ import { IonContent,
   IonMenuButton,
   IonAlert
 } from '@ionic/angular/standalone';
-import { GooglePlacesAutocompleteComponent } from 'src/app/components/google-places-autocomplete/google-places-autocomplete.component';
+import { GooglePlacesAutocompleteComponent } from 'src/app/components/googlemaps/google-places-autocomplete/google-places-autocomplete.component';
 import { AlertController } from '@ionic/angular';
 import { CreateBusiness, Marker } from 'src/app/interfaces/commonObjects.modals';
 import { NavigationService } from 'src/app/services/navigation.service';

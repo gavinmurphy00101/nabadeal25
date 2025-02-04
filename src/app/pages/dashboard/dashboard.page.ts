@@ -8,10 +8,9 @@ import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { MenuItems } from 'src/app/interfaces/commonObjects.modals';
 import { MenuService } from 'src/app/services/menu.service';
 import { MenuType } from 'src/app/enums/commonEnums';
-import { DataItem, NgxChartsModule }from '@swimlane/ngx-charts';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PieChartComponent } from 'src/app/components/pie-chart/pie-chart.component';
-import { BarChartComponent } from 'src/app/components/bar-chart/bar-chart.component';
+import { DataItem }from '@swimlane/ngx-charts';
+import { PieChartComponent } from 'src/app/components/charts/pie-chart/pie-chart.component';
+import { BarChartComponent } from 'src/app/components/charts/bar-chart/bar-chart.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -68,6 +67,4 @@ export class DashboardPage implements OnInit {
   public navigateTo(slug: string){
     this.navigationService.navigate(slug);
   }
-
-
 }

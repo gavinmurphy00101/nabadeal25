@@ -1,17 +1,17 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonLabel, IonItem, IonList,  IonButtons, IonButton, IonMenuButton, IonFooter, IonIcon, ModalController } from '@ionic/angular/standalone';
-import { MapComponent } from '../components/map/map.component';
+import { MapComponent } from '../components/googlemaps/map/map.component';
 import { NavigationService } from '../services/navigation.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../components/header/header.component';
 import { MenuComponent } from '../components/menu/menu.component';
 import { ModalComponent } from '../components/modal/modal.component';
-import { LatLng, MenuItems } from '../interfaces/commonObjects.modals';
+import { LatLng, Marker, MenuItems } from '../interfaces/commonObjects.modals';
 import { MenuService } from '../services/menu.service';
 import { MenuType } from '../enums/commonEnums';
 import { addIcons } from 'ionicons';
 import { filterOutline } from 'ionicons/icons';
-import { GooglePlacesAutocompleteComponent } from '../components/google-places-autocomplete/google-places-autocomplete.component';
+import { GooglePlacesAutocompleteComponent } from '../components/googlemaps/google-places-autocomplete/google-places-autocomplete.component';
 
 declare var google: any;
 
@@ -61,8 +61,14 @@ export class HomePage implements OnInit {
   }
 
   navigateTo(slug: string){
+    console.log(12,slug);
     this.navigationService.navigate(slug);
   }
+
+  navigateToCustomerFacing(marker: Marker){  
+    this.navigationService.navigateWithParams('customer-facing-business-profile', marker);
+  }
+
 
   async openModal() {
     const modal = await this.modalController.create({

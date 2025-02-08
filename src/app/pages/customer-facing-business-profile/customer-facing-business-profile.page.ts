@@ -34,7 +34,7 @@ export class CustomerFacingBusinessProfilePage implements OnInit {
 
   pageTitle: string = 'Customer Facing Business Profile';
   businessId: string | null = null;
-  businessDetails: Business | undefined;
+  businessDetails: Business = {} as Business;
 
   constructor(
     private navigationService : NavigationService, 
@@ -58,27 +58,26 @@ ionPageWillEnter(){
     this.route.paramMap.subscribe(params => {
       console.log(11, params);
 
-      params.keys.forEach(key => {
+      /* params.keys.forEach(key => {
         console.log(7978979, key)
         const value = params.get(key);
         if (value !== null) {
-          (this.businessDetails as any)[key] = value;
+          (this.businessDetails as any)[key] = value || ''
         }
         console.log(7978979, this.businessDetails)
-      });
-      /* this.businessDetails.activeDeal = params.get('activeDeal') ?? '';
+      }); */
+      this.businessDetails.activeDeal = params.get('activeDeal') ?? '';
       this.businessDetails.businessName = params.get('name') ?? '';
       this.businessDetails.description = params.get('description') ?? '';
       this.businessDetails.businessEmail = params.get('businessEmail') ?? '';
       this.businessDetails.businessPhone = params.get('businessPhone') ?? '';
-      this.businessDetails.businessWebsite = params.get('businessWebsite') ?? ''; */
+      this.businessDetails.businessWebsite = params.get('businessWebsite') ?? '';
       this.cdr.detectChanges(); // Trigger change detection
     });
   }
 
   goToPayment(){
-    console.log(2, this.businessDetails);
-    this.navigationService.navigateWithParams('payment', this.businessDetails);
+    this.navigationService.navigate('payment');
   }
 
 }

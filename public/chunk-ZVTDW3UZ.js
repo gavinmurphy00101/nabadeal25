@@ -1,1 +1,0 @@
-var n=function(t){return t.Home="home",t.Business="business",t}(n||{}),e=function(t){return t.Entertainment="Entertainment",t.Food="Food",t.Health="Health",t.Retail="Retail",t}(e||{});export{n as a,e as b};

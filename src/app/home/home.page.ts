@@ -61,7 +61,6 @@ export class HomePage implements OnInit {
   }
 
   navigateTo(slug: string){
-    console.log(12,slug);
     this.navigationService.navigate(slug);
   }
 

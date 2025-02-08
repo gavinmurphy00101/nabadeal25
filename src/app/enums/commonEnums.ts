@@ -9,3 +9,12 @@ export enum BusinessCategory {
   Health = 'Health',
   Retail = 'Retail'
 }
+
+export enum DealStatus {
+  Active = 'Active',
+  Inactive = 'Inactive'
+}
+
+export enum DatabaseName{
+  Businesses = 'businesses'
+}

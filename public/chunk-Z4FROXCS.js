@@ -1,1 +1,0 @@
-import{Ja as n,La as c,k as a,n as o}from"./chunk-JAN5YDZQ.js";var f=(()=>{let t=class t{constructor(i,r){this.router=i,this.route=r}navigate(i){this.router.navigate([i])}navigateWithParams(i,r){this.router.navigate([i,r])}};t.\u0275fac=function(r){return new(r||t)(o(c),o(n))},t.\u0275prov=a({token:t,factory:t.\u0275fac,providedIn:"root"});let e=t;return e})();export{f as a};

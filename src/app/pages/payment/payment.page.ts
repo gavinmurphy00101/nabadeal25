@@ -6,11 +6,15 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { ActivatedRoute } from '@angular/router';
 import { Business } from 'src/app/interfaces/commonObjects.modals';
 import { AppModule } from 'src/app/app/app.module';
-import { StripeFactoryService, StripeInstance } from "ngx-stripe";
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { switchMap } from "rxjs";
+import { StripeFactoryService, StripeInstance, NGX_STRIPE_VERSION } from "ngx-stripe";
+import { FirestoreService } from 'src/app/services/firestore.service';
+import { RtDatabaseService } from 'src/app/services/rt-database.service';
+import { DatabaseName } from 'src/app/enums/commonEnums';
+/* import { HttpClient, HttpResponse } from '@angular/common/http'; */
+/* import { switchMap } from "rxjs";
 import { environment } from 'src/environments/environment';
-
+import { FirestoreService } from 'src/app/services/firestore.service';
+import { Firestore } from '@angular/fire/firestore'; */
 interface IStripeSession {
   id: string;
 }
@@ -20,56 +24,112 @@ interface IStripeSession {
   templateUrl: './payment.page.html',
   styleUrls: ['./payment.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, AppModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, AppModule],
+  providers: [FirestoreService, AppModule]
+
 })
 export class PaymentPage implements OnInit {
-  businessDetails: Business = {
-      activeDeal: "",
-      businessName: "",
-      description: "",
-      businessPhone: "",
-      businessEmail: "",
-      businessWebsite: "",
-    };
+  //businessDetails: Business = {} as Business;
 
-    public stripe!: StripeInstance;
+  businessDetails: Business = {
+    
+      activeDeal:'active',
+      businessName:'string',
+      description:'string',
+      businessPhone:'string',
+      businessEmail:'string', 
+      businessWebsite:'string' ,
+      businessCategory:'string',
+      businessFormattedAddress:'string',
+      businessImageUrl:'string',
+      businessAddress:'string'
+  }
+
+    /* public stripe!: StripeInstance; */
   public stripeAmount!: number;
   isLoading: boolean = false;
+  businesses: Business[] = [];
 
   constructor(private navigationService : NavigationService, 
       private route: ActivatedRoute,
       private cdr: ChangeDetectorRef,
-      private http: HttpClient,
-      private stripeFactory: StripeFactoryService) { }
+    /*   private http: HttpClient, */
+      /* private stripeFactory: StripeFactoryService,*/
+      private firestoreService : FirestoreService,
+      private RTDB : RtDatabaseService ) { }
 
   ngOnInit() {
 
-    this.getParams()
+    //this.fetchBusinesses();
+
+    this.RTDB.getByFieldValue(DatabaseName.Businesses, 'activeDeal', 'notactive').subscribe(businesses => {
+      this.businesses = businesses;
+      console.log('Fetched businesses:', this.businesses);
+    });
+
+   /*  this.getParams()
     setTimeout(() => {
 
       this.cdr.detectChanges(); // Trigger change detection        
-    },300);
+    },300); */
 
    /*  this.stripe=
     this.stripeFactory.create('kskskjdklsjdkljsdklvj' );//environment.stripePublicKey
     this.stripeAmount = 100; */
   }
 
+   addBusinessToFirestore() {
+    this.firestoreService.addBusiness(this.businessDetails)
+      .then((returnVal) => {
+        console.log('Business added to Firestore successfully', returnVal);
+      })
+      .catch(error => {
+        console.error('Error adding business to Firestore: ', error);
+      });
+  }
+
+  fetchBusinesses() {
+    this.firestoreService.getBusinesses().subscribe(businesses => {
+      this.businesses = businesses;
+      console.log('Fetched businesses:', businesses);
+    });
+  } 
+
   public getParams() {
-    console.log('getParams');
+
     this.route.paramMap.subscribe(params => {
-      console.log(11, params);
-      this.businessDetails.activeDeal = params.get('activeDeal') ?? '';
-      this.businessDetails.businessName = params.get('name') ?? '';
-      this.businessDetails.description = params.get('description') ?? '';
-      this.businessDetails.businessEmail = params.get('businessEmail') ?? '';
-      this.businessDetails.businessPhone = params.get('businessPhone') ?? '';
-      this.businessDetails.businessWebsite = params.get('businessWebsite') ?? '';
+
+      this.businessDetails.activeDeal = params.get('activeDeal') ?? 'a';
+      this.businessDetails.businessName = params.get('name') ?? 'b';
+      this.businessDetails.description = params.get('description') ?? 'c';
+      this.businessDetails.businessEmail = params.get('businessEmail') ?? 'd';
+      this.businessDetails.businessPhone = params.get('businessPhone') ?? 'e';
+      this.businessDetails.businessWebsite = params.get('businessWebsite') ?? 'f';
       this.cdr.detectChanges(); // Trigger change detection
     });
   }
 
-  checkout() {
+  addBusinessToRTDB(){
+
+    const businessNumbers = 0;
+
+    for(let i = 0; i < businessNumbers; i++) {
+      setInterval(() => {
+        
+      },500);
+    }
+    this.businessDetails.activeDeal = 'notactive';
+    this.RTDB.add(DatabaseName.Businesses, this.businessDetails)
+        .then((res) => {
+          console.log('Business added to Realtime Database successfully', res);
+        })
+        .catch(error => {
+          console.error('Error adding business to Realtime Database: ', error);
+        });
+    
+  }
+
+ /*  checkout() {
     this.isLoading = true;
     const host = 'http://localhost:7000';
     this.http.post(host + '/create-checkout-session', { data: { amount: this.stripeAmount * 100 } }, { observe: 'response' })
@@ -86,5 +146,5 @@ export class PaymentPage implements OnInit {
         }
       });
   }
-
+ */
 }

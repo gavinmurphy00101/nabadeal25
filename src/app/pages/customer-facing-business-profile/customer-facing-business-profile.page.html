@@ -1,22 +1,39 @@
-<app-header *ngIf="businessDetails?.businessName" [title]="businessDetails?.businessName  ? businessDetails?.businessName : 'no title'" [enableBackButton]="true"></app-header>
+<app-header  [title]="businessDetails?.businessName  ? businessDetails?.businessName : 'no title'" [enableBackButton]="true"></app-header>
 
 
 <ion-content class="ion-padding">
-  <ion-card>
-    <!-- <img [src]="businessDetails?.imageUrl ?? 'default-image-url.jpg'" alt="Business Image" /> -->
-    <ion-card-header>
-      <ion-card-title>{{ businessDetails?.businessName ?? 'No Title' }}</ion-card-title>
-      <ion-card-subtitle>{{ businessDetails?.description ?? 'No Subtitle' }}</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>
-          <h2>Contact Details</h2>
-          <ion-text color="medium">
-            <p>{{ businessDetails?.businessPhone ?? 'No Phone' }}</p>
-          </ion-text>
-        </ion-label>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+  <h1>This page will display what the customer will see when looking at the business</h1>
+  <h4>If it looks good to the businessthey can confirm</h4>
+  <h4>If not they can go back and edit</h4>
+
+  <p>The next buuton will take user to the payments page</p>
+  <p>Only on next page will we upload the marker</p>
+<!--   <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Business Category*</ion-label>
+      <ion-select [(ngModel)]="businessDetails.businessCategory" placeholder="Select Category" required>
+        <ion-select-option *ngFor="let category of categories" [value]="category">{{category}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Business Location*</ion-label>
+      <app-google-places-autocomplete  (createMarker)="handleNewMarker($event)" style="width: 100%"/>
+    </ion-item>
+
+    <ion-item *ngIf="showImage"> 
+      <img [src]="businessDetails?.businessImageUrl" 
+      style="width: 100vw; height: 300px; margin-right: 10px;"/>
+      
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Business Website</ion-label>
+      <ion-input type="email" ion-input [(ngModel)]="businessDetails.businessWebsite"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+        <div class="spacer"></div>
+    </ion-item> -->
+    <ion-button (click)="goToPayment()">Proceed to payment</ion-button>
 </ion-content>

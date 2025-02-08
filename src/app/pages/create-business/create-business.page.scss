@@ -10,3 +10,37 @@ app-google-places-autocomplete{
     width: 100%;
     margin-bottom:4px;
 }
+
+.customIonItem{
+    --padding-bottom:0px;
+    --max-height: 20px;
+    --overflow:hidden
+}
+
+.customIonInput{
+    --background:transparent;
+    --border:none;
+    --width: 90vw;
+    --border-left: 1px solid lightgrey;
+    --font-size:.4rem
+}
+
+ion-item {
+    font-size: .8rem;
+    margin: 0px;
+    padding-bottom:0px;
+  }
+
+ion-input {
+    font-size: .8rem;
+    margin: 0px;
+  }
+
+  ion-select{
+    font-size: .8rem;
+    margin: 0px;
+    stroke: inherit;
+    width: 95vw;
+  }
+
+ 

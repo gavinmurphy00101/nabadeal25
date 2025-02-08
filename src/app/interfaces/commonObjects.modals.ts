@@ -1,4 +1,5 @@
 export interface CreateBusiness{
+    id:string;
     name: string;
     description: string;
     category: string;
@@ -38,7 +39,11 @@ export interface Business{
     description:string ;
     businessPhone:string ;
     businessEmail:string ;
-    businessWebsite:string ;
+    businessWebsite?:string ;
+    businessCategory?:string;
+    businessFormattedAddress?:string;
+    businessImageUrl?:string;
+    businessAddress?:string;
 }
 
 export interface LatLng{

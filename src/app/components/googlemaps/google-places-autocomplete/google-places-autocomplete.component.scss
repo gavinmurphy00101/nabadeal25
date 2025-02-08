@@ -1,7 +1,23 @@
-/* .pac-target-input{
-    background: white;
-} */
- input{
-    background: white; width: 98%; margin-bottom:4px;
-    margin-left:0px; margin-right: 4px;margin-top:70px;
- }
+.google-places-autocomplete-container{
+    padding-top:10px;
+    width: 100%;
+
+    input{
+        background: transparent;
+        border:none;
+        width: 90vw;
+        border-left: 1px solid lightgrey;
+        font-size:.8rem
+    }
+
+    input:focus{
+        outline: none;
+        border:none;
+        border-right: 16px solid greenyellow
+    }
+
+}
+
+.item-native{
+    padding-left:0px;
+}

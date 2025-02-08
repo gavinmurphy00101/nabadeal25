@@ -13,8 +13,7 @@ export class NavigationService {
     this.router.navigate([slug]);
   }
 
-  public navigateWithParams(slug: string, params:Marker){
-    console.log(34, params);
+  public navigateWithParams(slug: string, params:any){
     this.router.navigate([slug, params]);
   }
 

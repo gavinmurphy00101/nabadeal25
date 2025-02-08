@@ -42,4 +42,12 @@ export const routes: Routes = [
     path: 'customer-facing-business-profile',
     loadComponent: () => import('./pages/customer-facing-business-profile/customer-facing-business-profile.page').then( m => m.CustomerFacingBusinessProfilePage)
   },
+  {
+    path: 'add-location-marker-details',
+    loadComponent: () => import('./pages/add-location-marker-details/add-location-marker-details.page').then( m => m.AddLocationMarkerDetailsPage)
+  },
+  {
+    path: 'payment',
+    loadComponent: () => import('./pages/payment/payment.page').then( m => m.PaymentPage)
+  },
 ];

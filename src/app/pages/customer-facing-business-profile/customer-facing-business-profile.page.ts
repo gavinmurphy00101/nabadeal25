@@ -34,14 +34,7 @@ export class CustomerFacingBusinessProfilePage implements OnInit {
 
   pageTitle: string = 'Customer Facing Business Profile';
   businessId: string | null = null;
-  businessDetails: Business = {
-    activeDeal: "",
-    businessName: "",
-    description: "",
-    businessPhone: "",
-    businessEmail: "",
-    businessWebsite: "",
-  };
+  businessDetails: Business | undefined;
 
   constructor(
     private navigationService : NavigationService, 
@@ -61,32 +54,31 @@ ionPageWillEnter(){
     },300); 
   }
 
-  /* console.log(params);
-      debugger
+  public getParams() {
+    this.route.paramMap.subscribe(params => {
+      console.log(11, params);
 
-        this.businessDetails.activeDeal = params.get('activeDeal') || ""
-        //this.businessDetails.address = params.get('address');
-        this.businessDetails.businessName = params.get('name') || "";
-        //this.businessDetails.businessType = params.get('type');
-        this.businessDetails.businessEmail = params.get('businessEmail') || "";
-        this.businessDetails.businessPhone = params.get('businessPhone') || ""; 
-        this.businessDetails.businessWebsite = params.get('businessWebsite') || "";
-        //this.businessDetails.position = params.get('position');
-        this.businessDetails.description = params.get('description') || "";
-        //this.businessDetails.currentDeal = params.get('currentDeal');
-      console.log(this.businessDetails);
-      debugger
-        //this.cdr.detectChanges(); */
-        public getParams() {
-          this.route.paramMap.subscribe(params => {
-            this.businessDetails.activeDeal = params.get('activeDeal') ?? '';
-            this.businessDetails.businessName = params.get('name') ?? '';
-            this.businessDetails.description = params.get('description') ?? '';
-            this.businessDetails.businessEmail = params.get('businessEmail') ?? '';
-            this.businessDetails.businessPhone = params.get('businessPhone') ?? '';
-            this.businessDetails.businessWebsite = params.get('businessWebsite') ?? '';
-            this.cdr.detectChanges(); // Trigger change detection
-          });
+      params.keys.forEach(key => {
+        console.log(7978979, key)
+        const value = params.get(key);
+        if (value !== null) {
+          (this.businessDetails as any)[key] = value;
         }
+        console.log(7978979, this.businessDetails)
+      });
+      /* this.businessDetails.activeDeal = params.get('activeDeal') ?? '';
+      this.businessDetails.businessName = params.get('name') ?? '';
+      this.businessDetails.description = params.get('description') ?? '';
+      this.businessDetails.businessEmail = params.get('businessEmail') ?? '';
+      this.businessDetails.businessPhone = params.get('businessPhone') ?? '';
+      this.businessDetails.businessWebsite = params.get('businessWebsite') ?? ''; */
+      this.cdr.detectChanges(); // Trigger change detection
+    });
+  }
+
+  goToPayment(){
+    console.log(2, this.businessDetails);
+    this.navigationService.navigateWithParams('payment', this.businessDetails);
+  }
 
 }

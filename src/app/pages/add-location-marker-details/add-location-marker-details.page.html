@@ -1,0 +1,45 @@
+<app-header [title]="title" [enableBackButton]="enableBackButton"></app-header>
+
+<ion-content [fullscreen]="true">
+  
+ 
+  
+  <ion-list>
+
+
+   <!--  <ion-item>
+      <ion-label position="stacked">Business Category*</ion-label>
+      <ion-select [(ngModel)]="businessDetails?.businessCategory" placeholder="Select Category" required>
+        <ion-select-option *ngFor="let category of categories" [value]="businessDetails?.businessCategory">{{category}}</ion-select-option>
+      </ion-select>
+    </ion-item> -->
+
+    <ion-item>
+      <ion-label position="stacked">Business Location*</ion-label>
+      <app-google-places-autocomplete  (createMarker)="handleNewMarker($event)" style="width: 100%"/>
+    </ion-item>
+
+    <ion-item *ngIf="showImage"> 
+      <img [src]="businessDetails?.businessImageUrl" 
+      style="width: 100vw; height: 300px; margin-right: 10px;"/>
+      
+    </ion-item>
+
+    <!-- <ion-item>
+      <ion-label position="stacked">Business Website</ion-label>
+      <ion-input type="email" ion-input [(ngModel)]="businessDetails.website"></ion-input>
+    </ion-item> -->
+
+    <ion-item lines="none">
+        <div class="spacer"></div>
+        <ion-button  (click)="goToNext()" expand="full" shape="round" slot="end">Next</ion-button>
+   
+    </ion-item>
+      
+   
+  </ion-list>
+
+  
+
+
+</ion-content>

@@ -1,0 +1,26 @@
+.google-places-autocomplete-container{
+    padding-top:0px;
+    width: 100%;
+    margin-top:0px;
+
+
+    input{
+        background: transparent;
+        border:none;
+        width: 95vw;
+        border-left: 1px solid lightgrey;
+        font-size:.8rem;
+        padding-bottom:129px;
+    }
+
+    input:focus{
+        outline: none;
+        border:none;
+        border-bottom: 1px solid lightgrey
+    }
+
+}
+
+.item-native{
+    padding-left:0px;
+}

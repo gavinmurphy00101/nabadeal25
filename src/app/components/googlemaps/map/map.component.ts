@@ -16,8 +16,14 @@ export class MapComponent implements OnInit {
   map:any;
   cpos: LatLng | undefined;
   radiusInKm: number = 100;
+    bleep: HTMLAudioElement;
   
-  constructor(private distanceService : DistanceService) { }
+  constructor(private distanceService : DistanceService) { 
+    this.bleep = new Audio();
+    this.bleep.src = '/assets/sound/pop.mp3';
+    this.bleep.load();
+
+  }
 
   async ngOnInit() {
     const currentPosition = await this.printCurrentPosition();
@@ -26,47 +32,35 @@ export class MapComponent implements OnInit {
       zoom: 12,
       styles: [
         {
-            "featureType": "landscape.natural",
+            "featureType": "administrative",
+            "elementType": "labels.text.fill",
+            "stylers": [
+                {
+                    "color": "#6195a0"
+                }
+            ]
+        },
+        {
+            "featureType": "landscape",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "color": "#f2f2f2"
+                }
+            ]
+        },
+        {
+            "featureType": "landscape",
             "elementType": "geometry.fill",
             "stylers": [
                 {
-                    "visibility": "on"
-                },
-                {
-                    "color": "#e0efef"
+                    "color": "#ffffff"
                 }
             ]
         },
         {
             "featureType": "poi",
-            "elementType": "geometry.fill",
-            "stylers": [
-                {
-                    "visibility": "on"
-                },
-                {
-                    "hue": "#1900ff"
-                },
-                {
-                    "color": "#c0e8e8"
-                }
-            ]
-        },
-        {
-            "featureType": "road",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "lightness": 100
-                },
-                {
-                    "visibility": "simplified"
-                }
-            ]
-        },
-        {
-            "featureType": "road",
-            "elementType": "labels",
+            "elementType": "all",
             "stylers": [
                 {
                     "visibility": "off"
@@ -74,14 +68,95 @@ export class MapComponent implements OnInit {
             ]
         },
         {
-            "featureType": "transit.line",
-            "elementType": "geometry",
+            "featureType": "poi.park",
+            "elementType": "geometry.fill",
             "stylers": [
                 {
-                    "visibility": "on"
+                    "color": "#e6f3d6"
                 },
                 {
-                    "lightness": 700
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "saturation": -100
+                },
+                {
+                    "lightness": 45
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "color": "#f4d2c5"
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "labels.text",
+            "stylers": [
+                {
+                    "color": "#4e4e4e"
+                }
+            ]
+        },
+        {
+            "featureType": "road.arterial",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "color": "#f4f4f4"
+                }
+            ]
+        },
+        {
+            "featureType": "road.arterial",
+            "elementType": "labels.text.fill",
+            "stylers": [
+                {
+                    "color": "#787878"
+                }
+            ]
+        },
+        {
+            "featureType": "road.arterial",
+            "elementType": "labels.icon",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "transit",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "visibility": "off"
                 }
             ]
         },
@@ -90,11 +165,24 @@ export class MapComponent implements OnInit {
             "elementType": "all",
             "stylers": [
                 {
-                    "color": "#7dcdcd"
+                    "color": "#eaf6f8"
+                },
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "water",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "color": "#eaf6f8"
                 }
             ]
         }
     ],
+    
       mapTypeControl: false,
       streetViewControl: false,
       fullscreenControl: false,
@@ -156,7 +244,10 @@ export class MapComponent implements OnInit {
           position: { lat: element.position.lat, lng: element.position.lng },
           map: map,
           title: element.name, 
-           icon: element.icon 
+          icon: {
+            url: element.icon,
+            scaledSize: new google.maps.Size(50, 50) // Adjust the size as needed
+          }
          }); 
     
          const infoWindow = new google.maps.InfoWindow({
@@ -164,6 +255,7 @@ export class MapComponent implements OnInit {
         })
     
          marker.addListener('click', () => {
+            this.runBleep();
           infoWindow.open(map, marker);
           setTimeout(() => {
             this.addInfoWindowClickListener(index, element);
@@ -184,10 +276,6 @@ export class MapComponent implements OnInit {
     }
   }
 
-  onSeeMoreClick(element: any) {
-    console.log('See More clicked for:', element);
-    // Add your custom logic here, e.g., navigate to a different page or open a modal
-  }
 
   printCurrentPosition = async () => {
     const coordinates = await Geolocation.getCurrentPosition();
@@ -197,8 +285,12 @@ export class MapComponent implements OnInit {
   };
 
   public openPublicFacing( marker: Marker){
-    console.log(marker);
     this.navigateTo.emit(marker);
   }
+
+  public runBleep(){
+    this.bleep.play();
+}
+
 
 }

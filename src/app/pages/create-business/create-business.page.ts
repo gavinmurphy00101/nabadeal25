@@ -13,13 +13,16 @@ import { IonContent,
   IonButtons,
   IonButton,
   IonMenuButton,
-  IonAlert
+  IonAlert,
+  IonSelect,
+    IonSelectOption
 } from '@ionic/angular/standalone';
 import { GooglePlacesAutocompleteComponent } from 'src/app/components/googlemaps/google-places-autocomplete/google-places-autocomplete.component';
 import { AlertController } from '@ionic/angular';
 import { CreateBusiness, Marker } from 'src/app/interfaces/commonObjects.modals';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { HeaderComponent } from 'src/app/components/header/header.component';
+import { BusinessCategory } from 'src/app/enums/commonEnums';
 declare var google: any;
 @Component({
   selector: 'app-create-business',
@@ -39,6 +42,8 @@ declare var google: any;
     IonButton,
     IonMenuButton,
     IonAlert,
+    IonSelect,
+    IonSelectOption,
     HeaderComponent,
     CommonModule,
     FormsModule,
@@ -49,9 +54,14 @@ export class CreateBusinessPage implements OnInit {
   enableBackButton: boolean = true;
   title = 'Create Business';
   map: any;
-  business: CreateBusiness  = {name:'', description: '', category: '', email: '', phone: '', website: '', contact_name: ''};
+  business: CreateBusiness  = {id : "", name:'', description: '', category: '', email: '', phone: '', website: '', contact_name: ''};
   formatted_address: Array<any> | undefined;
   newMarker: any;
+  categories = [
+    BusinessCategory.Entertainment,
+    BusinessCategory.Food, 
+    BusinessCategory.Health, 
+    BusinessCategory.Retail];
   public alertButtons = [
     {
       text: 'Dashboard',
@@ -92,6 +102,7 @@ export class CreateBusinessPage implements OnInit {
     this.populateAddressField(newMarker);
     this.newMarker = newMarker;
   }
+
   private populateAddressField(newMarker: any) {
     this.formatted_address = newMarker.formatted_address;
   }
@@ -100,7 +111,6 @@ export class CreateBusinessPage implements OnInit {
     marker = await this.populateIcon(marker);  
     let arr = [];
     arr.push(marker);
-
     const markers: string | null = sessionStorage.getItem('markers');
     if (markers === null) {
       sessionStorage.setItem('markers', JSON.stringify(arr));
@@ -115,22 +125,26 @@ export class CreateBusinessPage implements OnInit {
     });
   }
 
+  public goToNext(){
+    this.navigationService.navigateWithParams('add-location-marker-details', this.business);
+  }
+
   private async populateIcon(marker: Marker) {
     switch (marker.category) {
       case 'entertainment':
-        marker.icon = 'assets/icon/icon.png';
+        marker.icon = 'assets/markers/barber_barber.svg';
         break;
       case 'food':
-        marker.icon = 'assets/icon/icon.png';
+        marker.icon = 'assets/markers/restaurant_marker.svg';
         break;
       case 'health':
-        marker.icon = 'assets/icon/icon.png';
+        marker.icon = 'assets/markers/restaurant_marker.svg';
         break;
       case 'retail':
-        marker.icon = 'assets/icon/icon.png';
+        marker.icon = 'assets/markers/restaurant_marker.svg';
         break;
       default:
-        marker.icon = 'assets/icon/icon.png';
+        marker.icon = 'assets/markers/restaurant_marker.svg';
         break;
     }
 
@@ -146,7 +160,7 @@ export class CreateBusinessPage implements OnInit {
   submitBusiness(){
 
     const markerObj: Marker = {
-      position: { lat: this.newMarker.lat, lng: this.newMarker.lng },
+        position: { lat: this.newMarker.lat, lng: this.newMarker.lng },
         map: this.map,
         title: this.business.name ? this.business.name : 'My Marker', 
         icon: '',
@@ -162,7 +176,10 @@ export class CreateBusinessPage implements OnInit {
         businessWebsite: this.business.website ? this.business.website : '',
     }
     this.pushMarkerToObjectForStorage(markerObj)
-      .then(() => this.presentAlert())
+      .then(() => {this.presentAlert(); this.refreshMap()});
+  }
+  refreshMap() {
+    throw new Error('Method not implemented.');
   }
 
 }

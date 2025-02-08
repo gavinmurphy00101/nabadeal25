@@ -61,3 +61,24 @@ ion-item{
   max-width: 300px;
   min-width: 300px;
 }
+
+.searchBarCtn{
+  width: 100%;
+  min-height: 40px;
+  height: auto;
+  margin-top:70px;
+  background: red;
+  text-align: start;
+  padding-bottom:0px;
+  display: flex;
+
+  .search{
+    width: 85%;
+    background: blue;
+  }
+
+  .searchButtons{
+    width: 15%;
+    background: green;
+  }
+}

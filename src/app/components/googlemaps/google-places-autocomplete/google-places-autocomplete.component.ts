@@ -1,5 +1,4 @@
-import { query } from '@angular/animations';
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Client } from '@googlemaps/google-maps-services-js';
 import { LatLng } from 'src/app/interfaces/commonObjects.modals';
 
@@ -15,11 +14,17 @@ declare global {
   selector: 'app-google-places-autocomplete',
   templateUrl: './google-places-autocomplete.component.html',
   styleUrls: ['./google-places-autocomplete.component.scss'],
-  inputs: []
+  standalone: true,
+  inputs: [ ],
+
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GooglePlacesAutocompleteComponent implements OnInit {
 
+  @Input() map: any;
   @Output() createMarker = new EventEmitter<Array<LatLng>>();
+  @ViewChild('search') search: ElementRef | undefined;
+
   newMarker: Array<LatLng> | undefined;
 
   ngOnInit(): void {
@@ -28,8 +33,7 @@ export class GooglePlacesAutocompleteComponent implements OnInit {
     },500);
   }
 
-  @ViewChild('search') search: ElementRef | undefined;
-  @Input() map: any;
+  
 
   searchResults: any[] = [];;
   autocomplete: any;

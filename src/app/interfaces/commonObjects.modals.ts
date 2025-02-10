@@ -63,3 +63,22 @@ export interface Points {
     lat2: number;
     lon2: number;
 }
+
+export interface User {
+    id: string; /* try use the id that firebase usese */
+    name: string;
+    email: string;
+    phone?: string;/*  need to get before they book a deal */
+    password: string;
+    role: string; /* enum here */
+    description: string;
+    currentDeal: string;
+    dealHistory: string[];
+    lastLocation: LatLng;
+    canOrder: boolean; /* use this to turn off ability to book deal */
+    dateOfBirth: string;
+}
+
+export interface BusinessUser extends User{
+
+}

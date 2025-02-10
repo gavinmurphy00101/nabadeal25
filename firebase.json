@@ -5,6 +5,7 @@
   },
   "functions": [
     {
+      "runtime": "nodejs20",
       "source": "functions",
       "codebase": "default",
       "ignore": [
@@ -21,7 +22,7 @@
     }
   ],
   "hosting": {
-    "public": "www",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",

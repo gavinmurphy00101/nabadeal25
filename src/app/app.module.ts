@@ -14,11 +14,11 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule,
     NgxStripeModule.forRoot(),
-    NgxStripeModule.forRoot(),
+
     
   ],
   providers: [
-    
+  
   ],
   bootstrap: [AppComponent]
 })

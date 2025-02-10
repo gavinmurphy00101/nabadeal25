@@ -12,6 +12,9 @@ import { MenuType } from '../enums/commonEnums';
 import { addIcons } from 'ionicons';
 import { filterOutline } from 'ionicons/icons';
 import { GooglePlacesAutocompleteComponent } from '../components/googlemaps/google-places-autocomplete/google-places-autocomplete.component';
+import { SendMailComponent } from '../components/send-mail/send-mail.component';
+import { MailService } from '../services/mail.service';
+
 
 declare var google: any;
 
@@ -34,10 +37,12 @@ declare var google: any;
             GooglePlacesAutocompleteComponent,
             HeaderComponent,
             MenuComponent,
-            CommonModule
+            SendMailComponent,
+            CommonModule,
+            
             ],
 
-  providers: [NavigationService] 
+  providers: [NavigationService, MailService] 
 })
 
 export class HomePage implements OnInit {

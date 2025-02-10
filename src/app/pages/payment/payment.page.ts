@@ -9,7 +9,8 @@ import { AppModule } from 'src/app/app/app.module';
 import { StripeFactoryService, StripeInstance, NGX_STRIPE_VERSION } from "ngx-stripe";
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { RtDatabaseService } from 'src/app/services/rt-database.service';
-import { DatabaseName } from 'src/app/enums/commonEnums';
+import { DatabaseBusinessFields, DatabaseName } from 'src/app/enums/commonEnums';
+import { firstValueFrom, pipe, take } from 'rxjs';
 /* import { HttpClient, HttpResponse } from '@angular/common/http'; */
 /* import { switchMap } from "rxjs";
 import { environment } from 'src/environments/environment';
@@ -49,6 +50,7 @@ export class PaymentPage implements OnInit {
   public stripeAmount!: number;
   isLoading: boolean = false;
   businesses: Business[] = [];
+ 
 
   constructor(private navigationService : NavigationService, 
       private route: ActivatedRoute,
@@ -58,14 +60,28 @@ export class PaymentPage implements OnInit {
       private firestoreService : FirestoreService,
       private RTDB : RtDatabaseService ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+    const uids: string[] = await this.getAllBusinessIds();
+
+    //this.RTDB.add(DatabaseName.Businesses, this.businessDetails)
+    
+    //this.RTDB.deleteEntireDatabase();
+
+    //this.updateBusiness();
+
+    //this.getBusinessCategorys();
+
+    //this.getBusinessById();
+
+    //this.getBusinessidbyid();
 
     //this.fetchBusinesses();
 
-    this.RTDB.getByFieldValue(DatabaseName.Businesses, 'activeDeal', 'notactive').subscribe(businesses => {
+    /* this.RTDB.getByFieldValue(DatabaseName.Businesses, 'activeDeal', 'notactive').subscribe(businesses => {
       this.businesses = businesses;
       console.log('Fetched businesses:', this.businesses);
-    });
+    }); */
 
    /*  this.getParams()
     setTimeout(() => {
@@ -76,6 +92,44 @@ export class PaymentPage implements OnInit {
    /*  this.stripe=
     this.stripeFactory.create('kskskjdklsjdkljsdklvj' );//environment.stripePublicKey
     this.stripeAmount = 100; */
+  }
+  getBusinessidbyid() {
+    const id = '-OIbkJNcPqQjwTUb26ij';
+    this.RTDB.getIdById(DatabaseName.Businesses, id).subscribe(business => {
+      console.log('Fetched business:', business);
+    });
+  }
+
+  async getAllBusinessIds() {
+    return await firstValueFrom(this.RTDB.getAllBusinessIds(DatabaseName.Businesses));
+  }
+
+  /* getAllBusinessIds() {
+    return this.RTDB.getAllBusinessIds(DatabaseName.Businesses).pipe(take(1)).toPromise();
+      
+  } */
+
+ 
+
+  updateBusiness() {
+    const fieldsToUpdate : Partial<Business> ={
+      [DatabaseBusinessFields.ActiveDeal] : 'true'
+    }
+
+    console.log('fieldsToUpdate:', fieldsToUpdate);
+    this.RTDB.update(DatabaseName.Businesses, '-OIbkJNcPqQjwTUb26ij', fieldsToUpdate)
+  }
+
+  getBusinessCategorys() {
+    const id = '-OIbkJNcPqQjwTUb26ij';
+    const fields: Array<DatabaseBusinessFields> = [
+      DatabaseBusinessFields.ActiveDeal, 
+      DatabaseBusinessFields.Description
+    ];
+    this.RTDB.getBusinessCategoryAndEmailById(DatabaseName.Businesses, id, fields)
+    .subscribe(business => {
+      console.log('Fetched business:', business);
+    });
   }
 
    addBusinessToFirestore() {
@@ -93,7 +147,16 @@ export class PaymentPage implements OnInit {
       this.businesses = businesses;
       console.log('Fetched businesses:', businesses);
     });
-  } 
+  }
+
+ /*  fetchSelectedFieldsById(databaseName: DatabaseName, businessId: string) {
+    this.RTDB.getBusinessCategoryAndEmailById(databaseName, businessId).subscribe(fields => {
+      const selectedFields = fields;
+      console.log('Fetched selected fields:', selectedFields);
+    }, error => {
+      console.error('Error fetching selected fields:', error);
+    });
+  } */
 
   public getParams() {
 
@@ -109,6 +172,14 @@ export class PaymentPage implements OnInit {
     });
   }
 
+  getBusinessById() {
+    debugger
+    const id = '-OIbkJNcPqQjwTUb26ij';
+    this.RTDB.getById(DatabaseName.Businesses, id).subscribe(business => {
+      console.log('Fetched business:', business);
+    });
+  }
+
   addBusinessToRTDB(){
 
     const businessNumbers = 0;
@@ -118,7 +189,7 @@ export class PaymentPage implements OnInit {
         
       },500);
     }
-    this.businessDetails.activeDeal = 'notactive';
+    this.businessDetails.activeDeal = 'notactive'; //new business have this field for test
     this.RTDB.add(DatabaseName.Businesses, this.businessDetails)
         .then((res) => {
           console.log('Business added to Realtime Database successfully', res);

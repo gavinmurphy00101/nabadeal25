@@ -16,5 +16,21 @@ export enum DealStatus {
 }
 
 export enum DatabaseName{
-  Businesses = 'businesses'
+  Businesses = 'businesses',
+  Deals = 'deals',
+  Users = 'users'
+}
+
+export enum DatabaseBusinessFields  {
+  ActiveDeal = 'activeDeal',
+  BusinessName = 'businessName',
+  Description = 'description', 
+  BusinessPhone = 'businessPhone',
+  BusinessEmail = 'businessEmail',
+  BusinessWebsite = 'businessWebsite',
+  BusinessCategory = 'businessCategory',
+  BusinessFormattedAddress = 'businessFormattedAddress',
+  BusinessImageUrl = 'businessImageUrl',
+  BusinessAddress = 'businessAddress'
+
 }

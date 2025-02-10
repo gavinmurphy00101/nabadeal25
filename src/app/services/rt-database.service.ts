@@ -90,19 +90,6 @@ export class RtDatabaseService {
   getById(databaseName: DatabaseName, businessId: string): Observable<Business> {
     const reference = ref(this.db, `${databaseName}/${businessId}`);
     return this.byDataType(reference, databaseName);
-    /* return new Observable<Business>(observer => {
-      onValue(businessRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          observer.next(data as Business);
-        } else {
-          observer.error(new Error('Business not found'));
-        }
-        observer.complete();
-      }, (error) => {
-        observer.error(error);
-      });
-    }); */
   }
 
   getIdById(databaseName: DatabaseName, businessId: string): Observable<string> {
@@ -121,29 +108,7 @@ export class RtDatabaseService {
     });
   }
 
-  private byDataType(reference:any, type:DatabaseName): Observable<any> {
-    switch (type) { 
-      case 'businesses': 
-        return new Observable<Business>(observer => {
-          onValue(reference, (snapshot) => {
-            const data = snapshot.val();
-            data ? observer.next(data as Business) : observer.error(new Error('Business not found'));
-            observer.complete();
-          });
-        });
-        /* return new Observable<any>(observer => {
-          onValue(reference, (snapshot) => {
-            const data = snapshot.val();
-            observer.next(data);
-            observer.complete();
-          }, (error) => {
-            observer.error(error);
-          });
-        }); */
-      default: 
-        return of(null);
-      }
-  }
+  
 
   deleteEntireDatabase( ): Promise<void> {
     const rootRef = ref(this.db, '/');
@@ -156,9 +121,7 @@ export class RtDatabaseService {
       onValue(reference, (snapshot) => {
         const data = snapshot.val();
         if (data) {
-
           const selectedFields = this.getSelectedFields(fields,data);
-
           observer.next(selectedFields);
         } else {
           observer.error(new Error('Business not found'));
@@ -176,7 +139,21 @@ export class RtDatabaseService {
       selectedFields[field] = data[field];
     });
     return selectedFields;
+  }
 
+  private byDataType(reference:any, type:DatabaseName): Observable<any> {
+    switch (type) { 
+      case 'businesses': 
+        return new Observable<Business>(observer => {
+          onValue(reference, (snapshot) => {
+            const data = snapshot.val();
+            data ? observer.next(data as Business) : observer.error(new Error('Business not found'));
+            observer.complete();
+          });
+        });
+      default: 
+        return of(null);
+      }
   }
 
 }

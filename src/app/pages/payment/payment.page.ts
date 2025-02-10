@@ -62,22 +62,27 @@ export class PaymentPage implements OnInit {
 
   async ngOnInit() {
 
-    const uids: string[] = await this.getAllBusinessIds();
+    //FIRESTORE
+    //this.addBusinessToFirestore(); //good
+    //this.fetchBusinesses(); //good
+    //this.firestoreService.deleteCollection(DatabaseName.Businesses); //good
+    /* this.firestoreService.getOnlyFieldsById(
+      DatabaseName.Businesses, 'iJCIk0gG0eyO1r5av8xy', [DatabaseBusinessFields.ActiveDeal, DatabaseBusinessFields.BusinessCategory]).subscribe(fields => {
+        console.log('Fetched selected fields:', fields);
+    });  *///good
+    /* this.firestoreService.getActiveBusinesses(DatabaseName.Businesses).subscribe(businesses => {
+      console.log(1, businesses);
+    }); */ //good
 
-    //this.RTDB.add(DatabaseName.Businesses, this.businessDetails)
+    //REALTIME DATABASE
+    //const uids: string[] = await this.getAllBusinessIds(); good
+    //this.RTDB.add(DatabaseName.Businesses, this.businessDetails) good
+    //this.RTDB.deleteEntireDatabase();good
+    //this.updateBusiness(); good
+    //this.getBusinessCategorys(); good
+    //this.getBusinessById(); good
+    //this.getBusinessidbyid(); good
     
-    //this.RTDB.deleteEntireDatabase();
-
-    //this.updateBusiness();
-
-    //this.getBusinessCategorys();
-
-    //this.getBusinessById();
-
-    //this.getBusinessidbyid();
-
-    //this.fetchBusinesses();
-
     /* this.RTDB.getByFieldValue(DatabaseName.Businesses, 'activeDeal', 'notactive').subscribe(businesses => {
       this.businesses = businesses;
       console.log('Fetched businesses:', this.businesses);
@@ -93,47 +98,9 @@ export class PaymentPage implements OnInit {
     this.stripeFactory.create('kskskjdklsjdkljsdklvj' );//environment.stripePublicKey
     this.stripeAmount = 100; */
   }
-  getBusinessidbyid() {
-    const id = '-OIbkJNcPqQjwTUb26ij';
-    this.RTDB.getIdById(DatabaseName.Businesses, id).subscribe(business => {
-      console.log('Fetched business:', business);
-    });
-  }
-
-  async getAllBusinessIds() {
-    return await firstValueFrom(this.RTDB.getAllBusinessIds(DatabaseName.Businesses));
-  }
-
-  /* getAllBusinessIds() {
-    return this.RTDB.getAllBusinessIds(DatabaseName.Businesses).pipe(take(1)).toPromise();
-      
-  } */
-
- 
-
-  updateBusiness() {
-    const fieldsToUpdate : Partial<Business> ={
-      [DatabaseBusinessFields.ActiveDeal] : 'true'
-    }
-
-    console.log('fieldsToUpdate:', fieldsToUpdate);
-    this.RTDB.update(DatabaseName.Businesses, '-OIbkJNcPqQjwTUb26ij', fieldsToUpdate)
-  }
-
-  getBusinessCategorys() {
-    const id = '-OIbkJNcPqQjwTUb26ij';
-    const fields: Array<DatabaseBusinessFields> = [
-      DatabaseBusinessFields.ActiveDeal, 
-      DatabaseBusinessFields.Description
-    ];
-    this.RTDB.getBusinessCategoryAndEmailById(DatabaseName.Businesses, id, fields)
-    .subscribe(business => {
-      console.log('Fetched business:', business);
-    });
-  }
 
    addBusinessToFirestore() {
-    this.firestoreService.addBusiness(this.businessDetails)
+    this.firestoreService.add(DatabaseName.Businesses, this.businessDetails)
       .then((returnVal) => {
         console.log('Business added to Firestore successfully', returnVal);
       })
@@ -141,22 +108,6 @@ export class PaymentPage implements OnInit {
         console.error('Error adding business to Firestore: ', error);
       });
   }
-
-  fetchBusinesses() {
-    this.firestoreService.getBusinesses().subscribe(businesses => {
-      this.businesses = businesses;
-      console.log('Fetched businesses:', businesses);
-    });
-  }
-
- /*  fetchSelectedFieldsById(databaseName: DatabaseName, businessId: string) {
-    this.RTDB.getBusinessCategoryAndEmailById(databaseName, businessId).subscribe(fields => {
-      const selectedFields = fields;
-      console.log('Fetched selected fields:', selectedFields);
-    }, error => {
-      console.error('Error fetching selected fields:', error);
-    });
-  } */
 
   public getParams() {
 
@@ -170,34 +121,6 @@ export class PaymentPage implements OnInit {
       this.businessDetails.businessWebsite = params.get('businessWebsite') ?? 'f';
       this.cdr.detectChanges(); // Trigger change detection
     });
-  }
-
-  getBusinessById() {
-    debugger
-    const id = '-OIbkJNcPqQjwTUb26ij';
-    this.RTDB.getById(DatabaseName.Businesses, id).subscribe(business => {
-      console.log('Fetched business:', business);
-    });
-  }
-
-  addBusinessToRTDB(){
-
-    const businessNumbers = 0;
-
-    for(let i = 0; i < businessNumbers; i++) {
-      setInterval(() => {
-        
-      },500);
-    }
-    this.businessDetails.activeDeal = 'notactive'; //new business have this field for test
-    this.RTDB.add(DatabaseName.Businesses, this.businessDetails)
-        .then((res) => {
-          console.log('Business added to Realtime Database successfully', res);
-        })
-        .catch(error => {
-          console.error('Error adding business to Realtime Database: ', error);
-        });
-    
   }
 
  /*  checkout() {
